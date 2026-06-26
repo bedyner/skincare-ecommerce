@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SkincareShop — Cart</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root { --black:#0A0A0A; --white:#FFFFFF; --cream:#F7F5F2; --warm:#EDE9E3; --gray:#888; --border:#E0DDD8; --serif:'Cormorant Garamond',Georgia,serif; --sans:'Inter',sans-serif; }
+    body { font-family: var(--sans); background: var(--white); color: var(--black); font-size: 14px; line-height: 1.6; }
+    nav { position:fixed; top:0; left:0; right:0; z-index:100; display:flex; align-items:center; justify-content:space-between; padding:1.2rem 3rem; background:rgba(255,255,255,0.95); backdrop-filter:blur(8px); border-bottom:1px solid var(--border); }
+    .nav-logo { font-family:var(--serif); font-size:1.4rem; font-weight:600; letter-spacing:0.12em; text-transform:uppercase; color:var(--black); text-decoration:none; }
+    .nav-links { display:flex; gap:2.5rem; list-style:none; }
+    .nav-links a { text-decoration:none; color:var(--gray); font-size:0.75rem; letter-spacing:0.1em; text-transform:uppercase; transition:color 0.2s; }
+    .nav-links a:hover { color:var(--black); }
+    .nav-icons { display:flex; gap:1.2rem; }
+    .nav-icons span { cursor:pointer; font-size:1rem; color:var(--gray); }
+
+    .page-header { margin-top:60px; padding:4rem 5rem 2rem; background:var(--cream); border-bottom:1px solid var(--border); }
+    .page-header h1 { font-family:var(--serif); font-size:3rem; font-weight:300; }
+
+    .cart-layout { display:grid; grid-template-columns:1fr 360px; gap:3rem; padding:3rem 5rem; }
+
+    .cart-items { }
+    .cart-header { display:grid; grid-template-columns:2fr 1fr 1fr 1fr; gap:1rem; padding-bottom:1rem; border-bottom:1px solid var(--border); font-size:0.68rem; letter-spacing:0.12em; text-transform:uppercase; color:var(--gray); }
+    .cart-row { display:grid; grid-template-columns:2fr 1fr 1fr 1fr; gap:1rem; padding:1.5rem 0; border-bottom:1px solid var(--border); align-items:center; }
+    .cart-product { display:flex; gap:1rem; align-items:center; }
+    .cart-thumb { width:70px; height:90px; display:flex; align-items:center; justify-content:center; font-size:2rem; flex-shrink:0; }
+    .cart-info p:first-child { font-family:var(--serif); font-size:1rem; }
+    .cart-info p:last-child { font-size:0.75rem; color:var(--gray); margin-top:0.2rem; }
+    .qty-control { display:flex; align-items:center; gap:0.5rem; }
+    .qty-btn { width:28px; height:28px; border:1px solid var(--border); background:transparent; cursor:pointer; font-size:0.9rem; display:flex; align-items:center; justify-content:center; }
+    .qty-val { width:28px; text-align:center; font-size:0.85rem; }
+    .remove-btn { background:none; border:none; color:var(--gray); cursor:pointer; font-size:0.75rem; text-decoration:underline; }
+
+    .order-summary { background:var(--cream); padding:2rem; height:fit-content; }
+    .order-summary h2 { font-family:var(--serif); font-size:1.5rem; font-weight:300; margin-bottom:1.5rem; }
+    .summary-row { display:flex; justify-content:space-between; margin-bottom:0.8rem; font-size:0.85rem; }
+    .summary-row.total { font-weight:500; font-size:1rem; border-top:1px solid var(--border); padding-top:1rem; margin-top:1rem; }
+    .promo-input { display:flex; gap:0.5rem; margin: 1rem 0; }
+    .promo-input input { flex:1; border:1px solid var(--border); padding:0.6rem 0.8rem; font-family:var(--sans); font-size:0.8rem; background:transparent; outline:none; }
+    .promo-input button { padding:0.6rem 1rem; font-size:0.7rem; letter-spacing:0.1em; text-transform:uppercase; background:var(--black); color:var(--white); border:none; cursor:pointer; }
+    .checkout-btn { width:100%; padding:1rem; font-family:var(--sans); font-size:0.75rem; letter-spacing:0.15em; text-transform:uppercase; background:var(--black); color:var(--white); border:none; cursor:pointer; margin-top:1rem; transition:opacity 0.2s; }
+    .checkout-btn:hover { opacity:0.75; }
+    .continue-link { display:block; text-align:center; margin-top:1rem; font-size:0.75rem; color:var(--gray); text-decoration:none; border-bottom:1px solid var(--gray); padding-bottom:1px; width:fit-content; margin-left:auto; margin-right:auto; }
+
+    footer { padding:3rem 5rem; border-top:1px solid var(--border); display:flex; justify-content:space-between; align-items:center; }
+    .footer-logo { font-family:var(--serif); font-size:1.2rem; font-weight:600; letter-spacing:0.12em; text-transform:uppercase; }
+    .footer-info { font-size:0.72rem; color:var(--gray); text-align:right; line-height:1.8; }
+  </style>
+</head>
+<body>
+<nav>
+  <a href="../index.html" class="nav-logo">SkincareShop</a>
+  <ul class="nav-links">
+    <li><a href="../index.html">Home</a></li>
+    <li><a href="products.html">Shop</a></li>
+    <li><a href="../markdown.html">Docs</a></li>
+    <li><a href="cart.html" class="active" style="color:var(--black);">Cart</a></li>
+  </ul>
+  <div class="nav-icons">
+    <span title="Search">🔍</span>
+    <span title="Account" onclick="location.href='login.html'">👤</span>
+    <span title="Cart" onclick="location.href='cart.html'" style="position:relative;">🛒<span class="cart-count" style="position:absolute; top:-6px; right:-9px; background:#0A0A0A; color:#fff; font-size:0.55rem; min-width:15px; height:15px; border-radius:50%; display:flex; align-items:center; justify-content:center;">0</span></span>
+  </div>
+</nav>
+
+<div class="page-header">
+  <h1>Shopping Cart</h1>
+  <p style="color:var(--gray); margin-top:0.5rem; font-size:0.85rem;">3 รายการในตะกร้า</p>
+</div>
+
+<div class="cart-layout">
+  <div class="cart-items">
+    <div class="cart-header">
+      <span>Product</span><span>Price</span><span>Quantity</span><span>Total</span>
+    </div>
+    <div class="cart-row">
+      <div class="cart-product">
+        <div class="cart-thumb" style="background:#EAE6E0;">💧</div>
+        <div class="cart-info"><p>Hydrating Serum</p><p>Serums · 30ml</p></div>
+      </div>
+      <span style="font-size:0.85rem;">฿2,380</span>
+      <div class="qty-control">
+        <button class="qty-btn" onclick="changeQty(this,-1)">−</button>
+        <span class="qty-val">1</span>
+        <button class="qty-btn" onclick="changeQty(this,1)">+</button>
+      </div>
+      <span class="row-total" style="font-size:0.85rem;">฿2,380</span>
+    </div>
+    <div class="cart-row">
+      <div class="cart-product">
+        <div class="cart-thumb" style="background:#EAE8E0;">☀️</div>
+        <div class="cart-info"><p>Daily SPF 50+</p><p>Sunscreen · 50ml</p></div>
+      </div>
+      <span style="font-size:0.85rem;">฿1,890</span>
+      <div class="qty-control">
+        <button class="qty-btn" onclick="changeQty(this,-1)">−</button>
+        <span class="qty-val">2</span>
+        <button class="qty-btn" onclick="changeQty(this,1)">+</button>
+      </div>
+      <span class="row-total" style="font-size:0.85rem;">฿3,780</span>
+    </div>
+    <div class="cart-row">
+      <div class="cart-product">
+        <div class="cart-thumb" style="background:#E8E4DC;">🫧</div>
+        <div class="cart-info"><p>Renewal Cream</p><p>Moisturizers · 50ml</p></div>
+      </div>
+      <span style="font-size:0.85rem;">฿2,890</span>
+      <div class="qty-control">
+        <button class="qty-btn" onclick="changeQty(this,-1)">−</button>
+        <span class="qty-val">1</span>
+        <button class="qty-btn" onclick="changeQty(this,1)">+</button>
+      </div>
+      <span class="row-total" style="font-size:0.85rem;">฿2,890</span>
+    </div>
+  </div>
+
+  <div class="order-summary">
+    <h2>Order Summary</h2>
+    <div class="summary-row"><span>Subtotal</span><span id="subtotal">฿9,050</span></div>
+    <div class="summary-row"><span>Shipping</span><span>ฟรี</span></div>
+    <div class="summary-row"><span>Discount</span><span>–</span></div>
+    <div class="promo-input">
+      <input type="text" placeholder="Promo code"/>
+      <button>Apply</button>
+    </div>
+    <div class="summary-row total"><span>Total</span><span id="total">฿9,050</span></div>
+    <button class="checkout-btn" onclick="location.href='checkout.html'">Proceed to Checkout</button>
+    <a href="products.html" class="continue-link">Continue Shopping</a>
+  </div>
+</div>
+
+<footer>
+  <div><p class="footer-logo">SkincareShop</p><p style="font-size:0.72rem;margin-top:0.5rem;">Premium Skincare Online Store</p>
+    <div style="display:flex; gap:1.6rem; margin-top:1rem;">
+      <a href="../index.html" style="color:var(--gray); text-decoration:none; font-size:0.7rem; letter-spacing:0.08em; text-transform:uppercase;">Home</a>
+      <a href="products.html" style="color:var(--gray); text-decoration:none; font-size:0.7rem; letter-spacing:0.08em; text-transform:uppercase;">Shop</a>
+      <a href="checkout.html" style="color:var(--gray); text-decoration:none; font-size:0.7rem; letter-spacing:0.08em; text-transform:uppercase;">Checkout</a>
+      <a href="../markdown.html" style="color:var(--gray); text-decoration:none; font-size:0.7rem; letter-spacing:0.08em; text-transform:uppercase;">Docs</a>
+    </div>
+  </div>
+  <div class="footer-info">CSI204 Digital Platform for Software Development<br/>Workshop #1 · Project Documentation with GitHub<br/><span style="font-size:0.65rem;opacity:0.5;">w1_T001_67154712_วิชญาดา-กิตตินัฏพงศ์</span></div>
+</footer>
+
+<script>
+  function changeQty(btn, delta) {
+    const row = btn.closest('.cart-row');
+    const qtyEl = row.querySelector('.qty-val');
+    let qty = parseInt(qtyEl.textContent) + delta;
+    if (qty < 1) qty = 1;
+    qtyEl.textContent = qty;
+    recalcCart();
+  }
+  // Recalculate row totals + subtotal/total from prices on the page
+  function recalcCart() {
+    let subtotal = 0;
+    document.querySelectorAll('.cart-row').forEach(row => {
+      const price = parseFloat(row.querySelector('span').textContent.replace(/[^0-9.]/g, '')) || 0;
+      const qty = parseInt(row.querySelector('.qty-val').textContent) || 0;
+      const lineTotal = price * qty;
+      const totalEl = row.querySelector('.row-total');
+      if (totalEl) totalEl.textContent = '฿' + lineTotal.toLocaleString();
+      subtotal += lineTotal;
+    });
+    const fmt = '฿' + subtotal.toLocaleString();
+    const sub = document.getElementById('subtotal'); if (sub) sub.textContent = fmt;
+    const tot = document.getElementById('total'); if (tot) tot.textContent = fmt;
+  }
+  // Sync cart badge from session
+  try {
+    const saved = JSON.parse(sessionStorage.getItem('skincareShopCart') || '[]');
+    const count = saved.reduce((s, i) => s + (i.qty || 0), 0);
+    const badge = document.querySelector('.cart-count');
+    if (badge && count > 0) badge.textContent = count;
+  } catch(e) {}
+  recalcCart();
+</script>
+</body>
+</html>

@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>SkincareShop — Products</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --black: #0A0A0A; --white: #FFFFFF; --cream: #F7F5F2;
+      --warm: #EDE9E3; --gray: #888; --border: #E0DDD8;
+      --serif: 'Cormorant Garamond', Georgia, serif;
+      --sans: 'Inter', sans-serif;
+    }
+    body { font-family: var(--sans); background: var(--white); color: var(--black); font-size: 14px; line-height: 1.6; }
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.2rem 3rem; background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(8px); border-bottom: 1px solid var(--border);
+    }
+    .nav-logo { font-family: var(--serif); font-size: 1.4rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--black); text-decoration: none; }
+    .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+    .nav-links a { text-decoration: none; color: var(--gray); font-size: 0.75rem; letter-spacing: 0.1em; text-transform: uppercase; transition: color 0.2s; }
+    .nav-links a:hover, .nav-links a.active { color: var(--black); }
+    .nav-icons { display: flex; gap: 1.2rem; }
+    .nav-icons span { cursor: pointer; font-size: 1rem; color: var(--gray); transition: color 0.2s; }
+    .nav-icons span:hover { color: var(--black); }
+
+    .page-header { margin-top: 60px; padding: 4rem 5rem 2rem; background: var(--cream); border-bottom: 1px solid var(--border); }
+    .page-header h1 { font-family: var(--serif); font-size: 3rem; font-weight: 300; }
+    .page-header p { color: var(--gray); margin-top: 0.5rem; font-size: 0.85rem; }
+
+    .products-layout { display: grid; grid-template-columns: 220px 1fr; gap: 3rem; padding: 3rem 5rem; }
+
+    .sidebar h3 { font-size: 0.7rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gray); margin-bottom: 1rem; margin-top: 2rem; }
+    .sidebar h3:first-child { margin-top: 0; }
+    .sidebar ul { list-style: none; }
+    .sidebar ul li { margin-bottom: 0.5rem; }
+    .sidebar ul li a { text-decoration: none; color: var(--black); font-size: 0.82rem; transition: color 0.2s; }
+    .sidebar ul li a:hover { color: var(--gray); }
+    .sidebar ul li a.active { font-weight: 500; border-bottom: 1px solid var(--black); padding-bottom: 1px; }
+
+    .products-main .toolbar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem; padding-bottom: 1rem; border-bottom: 1px solid var(--border); }
+    .products-main .toolbar span { font-size: 0.8rem; color: var(--gray); }
+    .sort-select { font-family: var(--sans); font-size: 0.75rem; border: 1px solid var(--border); padding: 0.4rem 0.8rem; background: transparent; cursor: pointer; }
+
+    .products-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+    .product-card { cursor: pointer; }
+    .product-img-wrap {
+      aspect-ratio: 3/4; display: flex; align-items: center; justify-content: center;
+      position: relative; margin-bottom: 1rem; overflow: hidden;
+    }
+    .product-emoji { font-size: 4rem; filter: grayscale(0.3); }
+    .product-badge {
+      position: absolute; top: 0.75rem; left: 0.75rem;
+      font-size: 0.6rem; letter-spacing: 0.1em; text-transform: uppercase;
+      background: var(--black); color: var(--white); padding: 0.3rem 0.6rem;
+    }
+    .product-badge.sale { background: #c0392b; }
+    .product-badge.new { background: #27ae60; }
+    .product-cat { font-size: 0.68rem; color: var(--gray); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 0.3rem; }
+    .product-name { font-family: var(--serif); font-size: 1.1rem; font-weight: 400; margin-bottom: 0.4rem; }
+    .product-price { font-size: 0.85rem; color: var(--black); margin-bottom: 0.75rem; }
+    .product-add {
+      width: 100%; padding: 0.7rem; font-family: var(--sans); font-size: 0.7rem;
+      letter-spacing: 0.1em; text-transform: uppercase; background: transparent;
+      border: 1px solid var(--border); color: var(--black); cursor: pointer; transition: all 0.2s;
+    }
+    .product-add:hover { background: var(--black); color: var(--white); border-color: var(--black); }
+
+    footer { padding: 3rem 5rem; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
+    .footer-logo { font-family: var(--serif); font-size: 1.2rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; }
+    .footer-info { font-size: 0.72rem; color: var(--gray); text-align: right; line-height: 1.8; }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a href="../index.html" class="nav-logo">SkincareShop</a>
+  <ul class="nav-links">
+    <li><a href="../index.html">Home</a></li>
+    <li><a href="products.html" class="active">Shop</a></li>
+    <li><a href="../markdown.html">Docs</a></li>
+    <li><a href="../index.html#architecture">System</a></li>
+    <li><a href="../index.html#checklist">Workshop</a></li>
+  </ul>
+  <div class="nav-icons">
+    <span title="Search">🔍</span>
+    <span title="Account" onclick="location.href='login.html'">👤</span>
+    <span title="Cart" onclick="location.href='cart.html'" style="position:relative;">🛒<span class="cart-count" style="position:absolute; top:-6px; right:-9px; background:#0A0A0A; color:#fff; font-size:0.55rem; min-width:15px; height:15px; border-radius:50%; display:flex; align-items:center; justify-content:center;">0</span></span>
+  </div>
+</nav>
+
+<div class="page-header">
+  <h1>All Products</h1>
+  <p>สินค้าสกินแคร์คุณภาพสูง คัดสรรมาเพื่อผิวของคุณโดยเฉพาะ</p>
+</div>
+
+<div class="products-layout">
+  <aside class="sidebar">
+    <h3>Category</h3>
+    <ul>
+      <li><a href="#" class="active">All Products (18)</a></li>
+      <li><a href="#">Serums (4)</a></li>
+      <li><a href="#">Moisturizers (4)</a></li>
+      <li><a href="#">Cleansers (3)</a></li>
+      <li><a href="#">Sunscreen (3)</a></li>
+      <li><a href="#">Masks (2)</a></li>
+      <li><a href="#">Oils (2)</a></li>
+    </ul>
+    <h3>Price Range</h3>
+    <ul>
+      <li><a href="#">ต่ำกว่า ฿1,000</a></li>
+      <li><a href="#">฿1,000 – ฿2,000</a></li>
+      <li><a href="#">฿2,000 – ฿3,000</a></li>
+      <li><a href="#">มากกว่า ฿3,000</a></li>
+    </ul>
+    <h3>Skin Type</h3>
+    <ul>
+      <li><a href="#">ผิวแห้ง</a></li>
+      <li><a href="#">ผิวมัน</a></li>
+      <li><a href="#">ผิวผสม</a></li>
+      <li><a href="#">ผิวแพ้ง่าย</a></li>
+    </ul>
+  </aside>
+
+  <div class="products-main">
+    <div class="toolbar">
+      <span>แสดง 18 รายการ</span>
+      <select class="sort-select">
+        <option>Sort: Featured</option>
+        <option>Price: Low to High</option>
+        <option>Price: High to Low</option>
+        <option>Newest</option>
+      </select>
+    </div>
+    <div class="products-grid">
+      <div class="product-card">
+        <div class="product-img-wrap" style="background:#EAE6E0;"><span class="product-badge">Bestseller</span><span class="product-emoji">💧</span></div>
+        <p class="product-cat">Serums</p><p class="product-name">Hydrating Serum</p>
+        <p class="product-price">฿2,380</p><button class="product-add">Add to Cart</button>
+      </div>
+      <div class="product-card">
+        <div class="product-img-wrap" style="background:#E8E4DC;"><span class="product-emoji">🫧</span></div>
+        <p class="product-cat">Moisturizers</p><p class="product-name">Renewal Cream</p>
+        <p class="product-price">฿2,890</p><button class="product-add">Add to Cart</button>
+      </div>
+      <div class="product-card">
+        <div class="product-img-wrap" style="background:#EDE5DC;"><span class="product-badge sale">Sale</span><span class="product-emoji">✨</span></div>
+        <p class="product-cat">Oils</p><p class="product-name">Radiance Oil</p>
+        <p class="product-price"><s>฿3,200</s> ฿2,490</p><button class="product-add">Add to Cart</button>
+      </div>
+      <div class="product-card">
+        <div class="product-img-wrap" style="background:#F0ECE8;"><span class="product-emoji">🌿</span></div>
+        <p class="product-cat">Cleansers</p><p class="product-name">Gentle Cleanser</p>
+        <p class="product-price">฿1,490</p><button class="product-add">Add to Cart</button>
+      </div>
+      <div class="product-card">
+        <div class="product-img-wrap" style="background:#E6EAE4;"><span class="product-badge new">New</span><span class="product-emoji">💦</span></div>
+        <p class="product-cat">Mists</p><p class="product-name">Hydrating Mist</p>
+        <p class="product-price">฿1,290</p><button class="product-add">Add to Cart</button>
+      </div>
+      <div class="product-card">
+        <div class="product-img-wrap" style="background:#EDE8E4;"><span class="product-emoji">🎭</span></div>
+        <p class="product-cat">Masks</p><p class="product-name">Glow Mask</p>
+        <p class="product-price">฿1,890</p><button class="product-add">Add to Cart</button>
+      </div>
+      <div class="product-card">
+        <div class="product-img-wrap" style="background:#EAE8E0;"><span class="product-badge">Bestseller</span><span class="product-emoji">☀️</span></div>
+        <p class="product-cat">Sunscreen</p><p class="product-name">Daily SPF 50+</p>
+        <p class="product-price">฿1,890</p><button class="product-add">Add to Cart</button>
+      </div>
+      <div class="product-card">
+        <div class="product-img-wrap" style="background:#E4E8EC;"><span class="product-emoji">🧴</span></div>
+        <p class="product-cat">Serums</p><p class="product-name">Niacinamide 10%</p>
+        <p class="product-price">฿1,680</p><button class="product-add">Add to Cart</button>
+      </div>
+      <div class="product-card">
+        <div class="product-img-wrap" style="background:#ECE4E8;"><span class="product-badge new">New</span><span class="product-emoji">🌸</span></div>
+        <p class="product-cat">Moisturizers</p><p class="product-name">Rose Barrier Cream</p>
+        <p class="product-price">฿3,190</p><button class="product-add">Add to Cart</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div>
+    <p class="footer-logo">SkincareShop</p>
+    <p style="font-size:0.72rem; margin-top:0.5rem;">Premium Skincare Online Store</p>
+    <div style="display:flex; gap:1.6rem; margin-top:1rem;">
+      <a href="../index.html" style="color:var(--gray); text-decoration:none; font-size:0.7rem; letter-spacing:0.08em; text-transform:uppercase;">Home</a>
+      <a href="products.html" style="color:var(--gray); text-decoration:none; font-size:0.7rem; letter-spacing:0.08em; text-transform:uppercase;">Shop</a>
+      <a href="cart.html" style="color:var(--gray); text-decoration:none; font-size:0.7rem; letter-spacing:0.08em; text-transform:uppercase;">Cart</a>
+      <a href="../markdown.html" style="color:var(--gray); text-decoration:none; font-size:0.7rem; letter-spacing:0.08em; text-transform:uppercase;">Docs</a>
+      <a href="login.html" style="color:var(--gray); text-decoration:none; font-size:0.7rem; letter-spacing:0.08em; text-transform:uppercase;">Account</a>
+    </div>
+  </div>
+  <div class="footer-info">
+    CSI204 Digital Platform for Software Development<br/>
+    Workshop #1 · Project Documentation with GitHub<br/>
+    <span style="font-size:0.65rem; opacity:0.5;">w1_T001_67154712_วิชญาดา-กิตตินัฏพงศ์</span>
+  </div>
+</footer>
+
+<!-- Shared cart + interaction logic -->
+<script src="../js/main.js"></script>
+</body>
+</html>
