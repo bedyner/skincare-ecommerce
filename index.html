@@ -604,6 +604,28 @@
       .brand-band { padding:4.5rem 1.5rem; }
       .contact-form { flex-direction:column; }
     }
+  
+    /* === nav login button === */
+    .nav-login { background:none; border:none; font-family:var(--sans); font-size:0.72rem; letter-spacing:0.12em; text-transform:uppercase; color:var(--black); cursor:pointer; padding:0.5rem 0.4rem; transition:opacity .2s; }
+    .nav-login:hover { opacity:0.55; }
+
+    /* === login modal === */
+    .login-overlay { position:fixed; inset:0; background:rgba(10,10,10,0.55); backdrop-filter:blur(3px); display:none; align-items:center; justify-content:center; z-index:1000; padding:1.5rem; }
+    .login-overlay.open { display:flex; }
+    .login-modal { background:#fff; width:100%; max-width:400px; padding:2.6rem 2.4rem; border-radius:4px; position:relative; box-shadow:0 30px 80px rgba(0,0,0,0.3); animation:loginIn .25s ease; }
+    @keyframes loginIn { from { opacity:0; transform:translateY(12px); } to { opacity:1; transform:translateY(0); } }
+    .login-close { position:absolute; top:0.9rem; right:1.1rem; background:none; border:none; font-size:1.5rem; color:var(--gray); cursor:pointer; line-height:1; }
+    .login-close:hover { color:var(--black); }
+    .login-eyebrow { font-size:0.7rem; letter-spacing:0.3em; text-transform:uppercase; color:var(--gray); margin-bottom:0.5rem; }
+    .login-title { font-family:var(--serif); font-size:2rem; font-weight:300; margin-bottom:1.6rem; }
+    .login-field { margin-bottom:1rem; }
+    .login-field label { display:block; font-size:0.68rem; letter-spacing:0.08em; text-transform:uppercase; color:var(--gray); margin-bottom:0.4rem; }
+    .login-field input { width:100%; padding:0.8rem 0.9rem; border:1px solid var(--border); font-family:var(--sans); font-size:0.9rem; }
+    .login-field input:focus { outline:none; border-color:var(--black); }
+    .login-submit { width:100%; padding:0.9rem; background:var(--black); color:#fff; border:none; font-size:0.72rem; letter-spacing:0.14em; text-transform:uppercase; cursor:pointer; margin-top:0.5rem; transition:opacity .2s; }
+    .login-submit:hover { opacity:0.85; }
+    .login-alt { text-align:center; font-size:0.8rem; color:var(--gray); margin-top:1.3rem; }
+    .login-alt a { color:var(--black); cursor:pointer; }
   </style>
 </head>
 <body>
@@ -619,6 +641,7 @@
     <li><a href="#contact">Contact</a></li>
   </ul>
   <div class="nav-icons">
+    <button class="nav-login" onclick="openLogin()">Log In</button>
     <a href="#shop" class="nav-cta">Shop Now</a>
   </div>
 </nav>
@@ -795,6 +818,27 @@
   </div>
 </section>
 
+<!-- LOGIN MODAL -->
+<div class="login-overlay" id="loginOverlay" onclick="if(event.target===this)closeLogin()">
+  <div class="login-modal">
+    <button class="login-close" onclick="closeLogin()" aria-label="Close">&times;</button>
+    <p class="login-eyebrow">Welcome back</p>
+    <h2 class="login-title">Sign in</h2>
+    <form onsubmit="return doLogin(event)">
+      <div class="login-field">
+        <label for="loginEmail">Email</label>
+        <input type="email" id="loginEmail" placeholder="you@email.com" required/>
+      </div>
+      <div class="login-field">
+        <label for="loginPass">Password</label>
+        <input type="password" id="loginPass" placeholder="••••••••" required/>
+      </div>
+      <button type="submit" class="login-submit">Sign In</button>
+    </form>
+    <p class="login-alt">ยังไม่มีบัญชี? <a onclick="return false;">สมัครสมาชิก</a></p>
+  </div>
+</div>
+
 <!-- FOOTER -->
 <footer>
   <div>
@@ -841,6 +885,18 @@
     setTimeout(() => { b.textContent = 'Subscribe'; }, 2000);
     return false;
   }
+
+  // Login modal
+  function openLogin() { document.getElementById('loginOverlay').classList.add('open'); document.body.style.overflow = 'hidden'; }
+  function closeLogin() { document.getElementById('loginOverlay').classList.remove('open'); document.body.style.overflow = ''; }
+  function doLogin(e) {
+    e.preventDefault();
+    const b = e.target.querySelector('.login-submit');
+    b.textContent = 'Signed in ✓';
+    setTimeout(() => { closeLogin(); b.textContent = 'Sign In'; e.target.reset(); }, 1200);
+    return false;
+  }
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLogin(); });
 </script>
 </body>
 </html>
