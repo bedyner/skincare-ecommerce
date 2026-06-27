@@ -94,17 +94,10 @@ graph TD
 
 ```
 SkincareShop/
-├── index.html            ← หน้าแรก (Hero + สินค้า + Architecture + Checklist)
+├── index.html            ← หน้าแรก: Hero + แบรนด์ + สินค้า + Promise + Contact (self-contained)
 ├── markdown.html         ← หน้า Docs (เรนเดอร์ Markdown ด้วย marked.js)
-├── pages/
-│   ├── products.html     ← หน้าสินค้าทั้งหมด
-│   ├── cart.html         ← ตะกร้าสินค้า
-│   ├── checkout.html     ← ชำระเงิน
-│   └── login.html        ← เข้าสู่ระบบ / สมัครสมาชิก
-├── css/
-│   └── style.css
-├── js/
-│   └── main.js           ← ระบบตะกร้า (cart) + ตัวกรอง
+├── images/
+│   └── products/         ← รูปสินค้า (วางไฟล์ .jpg/.png ตามชื่อในคู่มือ)
 └── README.md
 ```
 

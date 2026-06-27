@@ -572,42 +572,72 @@
       .cl-item { grid-template-columns: 2rem 1fr; }
       .cl-evidence, .cl-score { display: none; }
     }
+  
+    /* === nav CTA === */
+    .nav-cta { font-size:0.72rem; letter-spacing:0.12em; text-transform:uppercase; color:var(--black); text-decoration:none; border:1px solid var(--black); padding:0.5rem 1rem; border-radius:2px; transition:all .2s; }
+    .nav-cta:hover { background:var(--black); color:#fff; }
+
+    /* === Brand band (signature interlude) === */
+    .brand-band { background:var(--black); color:#F2EEE8; padding:7rem 5rem; text-align:center; }
+    .brand-inner { max-width:780px; margin:0 auto; }
+    .brand-eyebrow { font-size:0.72rem; letter-spacing:0.4em; text-transform:uppercase; color:rgba(242,238,232,0.5); margin-bottom:1.4rem; }
+    .brand-wordmark { font-family:var(--serif); font-size:clamp(3rem,8vw,6rem); font-weight:300; line-height:0.95; margin-bottom:1.8rem; }
+    .brand-wordmark em { font-style:italic; }
+    .brand-copy { font-size:1rem; line-height:1.95; color:rgba(242,238,232,0.82); max-width:620px; margin:0 auto; }
+    .brand-rule { width:46px; height:1px; background:rgba(242,238,232,0.4); margin:2.4rem auto; }
+    .brand-sign { font-family:var(--serif); font-style:italic; font-size:1.1rem; color:rgba(242,238,232,0.72); letter-spacing:0.02em; }
+
+    /* === Contact === */
+    .contact-section { background:var(--cream); text-align:center; }
+    .contact-inner { max-width:560px; margin:0 auto; }
+    .contact-eyebrow { font-size:0.72rem; letter-spacing:0.3em; text-transform:uppercase; color:var(--gray); margin-bottom:1rem; }
+    .contact-title { font-family:var(--serif); font-size:2.6rem; font-weight:300; margin-bottom:0.8rem; }
+    .contact-copy { color:var(--gray); margin-bottom:2rem; }
+    .contact-form { display:flex; gap:0.6rem; max-width:440px; margin:0 auto 1.4rem; }
+    .contact-input { flex:1; padding:0.85rem 1rem; border:1px solid var(--border); background:#fff; font-family:var(--sans); font-size:0.85rem; }
+    .contact-input:focus { outline:none; border-color:var(--black); }
+    .contact-btn { padding:0.85rem 1.6rem; background:var(--black); color:#fff; border:none; font-size:0.72rem; letter-spacing:0.12em; text-transform:uppercase; cursor:pointer; transition:opacity .2s; }
+    .contact-btn:hover { opacity:0.85; }
+    .contact-meta { font-size:0.75rem; color:var(--gray); letter-spacing:0.05em; }
+
+    @media (max-width:768px){
+      .brand-band { padding:4.5rem 1.5rem; }
+      .contact-form { flex-direction:column; }
+    }
   </style>
 </head>
 <body>
 
 <!-- NAV -->
 <nav>
-  <a href="index.html" class="nav-logo">SkincareShop</a>
+  <a href="#top" class="nav-logo">SkincareShop</a>
   <ul class="nav-links">
-    <li><a href="index.html" class="active">Home</a></li>
-    <li><a href="pages/products.html">Shop</a></li>
-    <li><a href="markdown.html">Docs</a></li>
-    <li><a href="#architecture">System</a></li>
-    <li><a href="#checklist">Workshop</a></li>
+    <li><a href="#top" class="active">Home</a></li>
+    <li><a href="#shop">Shop</a></li>
+    <li><a href="#about">Our Story</a></li>
+    <li><a href="#promise">Promise</a></li>
+    <li><a href="#contact">Contact</a></li>
   </ul>
   <div class="nav-icons">
-    <span title="Search">🔍</span>
-    <span title="Account" onclick="location.href='pages/login.html'" style="cursor:pointer;">👤</span>
-    <span title="Cart" onclick="location.href='pages/cart.html'" style="cursor:pointer; position:relative;">🛒<span class="cart-count" style="position:absolute; top:-6px; right:-9px; background:#0A0A0A; color:#fff; font-size:0.55rem; min-width:15px; height:15px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-family:var(--sans);">0</span></span>
+    <a href="#shop" class="nav-cta">Shop Now</a>
   </div>
 </nav>
 
 <!-- HERO -->
-<section class="hero">
+<section class="hero" id="top">
   <div class="hero-left">
     <p class="hero-tag">Premium Skincare Collection</p>
     <h1 class="hero-title">Reveal Your<br/><em>Natural</em><br/>Radiance</h1>
     <p class="hero-desc">ผลิตภัณฑ์ดูแลผิวคุณภาพสูง ผสานส่วนผสมจากธรรมชาติ และงานวิจัยทางวิทยาศาสตร์ เพื่อผิวที่ดีที่สุดของคุณ</p>
     <div class="hero-btns">
       <a href="#shop" class="btn-dark">Shop Now</a>
-      <a href="#promise" class="btn-ghost">Our Story</a>
+      <a href="#about" class="btn-ghost">Our Story</a>
     </div>
   </div>
   <div class="hero-right">
     <div class="hero-img-placeholder">
       <div class="hero-bottle">🧴</div>
-      <p class="hero-img-label">Essence Lansite · Premium Formula</p>
+      <p class="hero-img-label">SkincareShop · Signature Serum</p>
     </div>
   </div>
 </section>
@@ -628,11 +658,22 @@
   </div>
 </div>
 
+<!-- BRAND STORY -->
+<section class="brand-band" id="about">
+  <div class="brand-inner">
+    <p class="brand-eyebrow">The House of</p>
+    <h2 class="brand-wordmark"><em>SkincareShop</em></h2>
+    <p class="brand-copy">เราเชื่อว่าผิวที่ดีเริ่มจากความเรียบง่าย — ส่วนผสมจากธรรมชาติที่พิสูจน์ได้ทางวิทยาศาสตร์ ผลิตทีละน้อยเพื่อความสดใหม่ และโปร่งใสในทุกขั้นตอน นี่คือสกินแคร์ที่ตั้งใจทำมาเพื่อผิวของคุณจริงๆ</p>
+    <div class="brand-rule"></div>
+    <p class="brand-sign">Clean beauty, backed by science · Est. 2026 — Bangkok</p>
+  </div>
+</section>
+
 <!-- SHOP -->
 <section class="section" id="shop">
   <div class="section-header">
     <h2 class="section-title">Shop All Products</h2>
-    <a href="pages/products.html" class="section-link">View All →</a>
+    <span class="section-link" style="cursor:default;">Curated Collection</span>
   </div>
 
   <div class="filter-bar">
@@ -740,125 +781,31 @@
   </div>
 </div>
 
-<!-- SYSTEM ARCHITECTURE -->
-<div class="arch-section" id="architecture">
-  <h2 class="arch-title">System Architecture</h2>
-  <p class="arch-sub">CSI204 · Workshop #1 · โครงสร้างระบบ SkincareShop ออกแบบตามหลัก Separation of Concerns</p>
-
-  <div class="arch-flow">
-    <div class="arch-col">
-      <p class="arch-col-label">Client Layer</p>
-      <div class="arch-node highlight">Web Browser<br/>HTML / CSS / JS</div>
-      <div class="arch-node">Mobile Browser<br/>Responsive</div>
-    </div>
-    <div class="arch-col">
-      <p class="arch-col-label">Gateway Layer</p>
-      <div class="arch-node highlight">GitHub Pages<br/>Frontend Hosting</div>
-      <div class="arch-node">API Gateway<br/>Auth · Routing</div>
-    </div>
-    <div class="arch-col">
-      <p class="arch-col-label">Backend Layer</p>
-      <div class="arch-node">User Service</div>
-      <div class="arch-node">Product Service</div>
-      <div class="arch-node">Order Service</div>
-      <div class="arch-node highlight">Payment Service</div>
-    </div>
-    <div class="arch-col">
-      <p class="arch-col-label">Data Layer</p>
-      <div class="arch-node highlight">MySQL<br/>Primary DB</div>
-      <div class="arch-node">Redis<br/>Cache · Session</div>
-    </div>
-    <div class="arch-col">
-      <p class="arch-col-label">External Services</p>
-      <div class="arch-node">PromptPay /<br/>Credit Card</div>
-      <div class="arch-node">LINE Notify API</div>
-      <div class="arch-node">Email (SMTP)</div>
-    </div>
+<!-- CONTACT -->
+<section class="section contact-section" id="contact">
+  <div class="contact-inner">
+    <p class="contact-eyebrow">Stay in touch</p>
+    <h2 class="contact-title">Join the ritual</h2>
+    <p class="contact-copy">รับเคล็ดลับการดูแลผิวและสิทธิพิเศษเฉพาะสมาชิกก่อนใคร</p>
+    <form class="contact-form" onsubmit="return subscribe(event)">
+      <input type="email" class="contact-input" placeholder="อีเมลของคุณ" required/>
+      <button type="submit" class="contact-btn">Subscribe</button>
+    </form>
+    <p class="contact-meta">hello@skincareshop.co · Bangkok, Thailand</p>
   </div>
-
-  <div class="mermaid-box">
-    <p class="mermaid-label">Mermaid Diagram — วางใน README.md บน GitHub</p>
-    <pre class="mermaid-code">```mermaid
-graph TD
-    A[👤 ผู้ใช้งาน] --> B[Frontend HTML/CSS/JS]
-    B --> C[GitHub Pages]
-    B --> D[API Gateway]
-    D --> E[User Service]
-    D --> F[Product Service]
-    D --> G[Order Service]
-    D --> H[Payment Service]
-    E --> I[(MySQL DB)]
-    F --> I
-    G --> I
-    H --> J[PromptPay / Credit Card]
-    G --> K[LINE Notify API]
-    I --> L[(Redis Cache)]
-```</pre>
-  </div>
-</div>
-
-<!-- CHECKLIST -->
-<div class="checklist-section" id="checklist">
-  <h2 class="cl-title">Workshop #1 Checklist</h2>
-  <p class="cl-sub">Project Documentation with GitHub · 2 คะแนน</p>
-
-  <div class="cl-list">
-    <div class="cl-item">
-      <div class="cl-status-done">✓</div>
-      <span class="cl-num">01</span>
-      <span class="cl-text">สร้าง GitHub Repository ถูกต้อง</span>
-      <span class="cl-evidence">URL Repository</span>
-      <span class="cl-score">0.1 pts</span>
-    </div>
-    <div class="cl-item">
-      <div class="cl-status-done">✓</div>
-      <span class="cl-num">02</span>
-      <span class="cl-text">ใช้ Sourcetree และมี Commit History</span>
-      <span class="cl-evidence">Screenshot Sourcetree</span>
-      <span class="cl-score">0.2 pts</span>
-    </div>
-    <div class="cl-item">
-      <div class="cl-status-done">✓</div>
-      <span class="cl-num">03</span>
-      <span class="cl-text">การใช้งาน Markdown จัดทำเอกสาร README.md</span>
-      <span class="cl-evidence">README แสดงบน GitHub</span>
-      <span class="cl-score">0.5 pts</span>
-    </div>
-    <div class="cl-item">
-      <div class="cl-status-done">✓</div>
-      <span class="cl-num">04</span>
-      <span class="cl-text">จัดทำเอกสาร Analysis & Design</span>
-      <span class="cl-evidence">Markdown + Screenshot</span>
-      <span class="cl-score">0.5 pts</span>
-    </div>
-    <div class="cl-item">
-      <div class="cl-status-done">✓</div>
-      <span class="cl-num">05</span>
-      <span class="cl-text">จัดทำภาพ System Architecture ด้วย Mermaid Diagram</span>
-      <span class="cl-evidence">รูปภาพ Diagram</span>
-      <span class="cl-score">0.5 pts</span>
-    </div>
-    <div class="cl-item">
-      <div class="cl-status-done">✓</div>
-      <span class="cl-num">06</span>
-      <span class="cl-text">GitHub Pages เผยแพร่ได้จริง</span>
-      <span class="cl-evidence"><a href="https://bedyner.github.io/SkincareShop/" target="_blank" style="color:inherit;">bedyner.github.io/SkincareShop</a></span>
-      <span class="cl-score">0.2 pts</span>
-    </div>
-  </div>
-</div>
+</section>
 
 <!-- FOOTER -->
 <footer>
   <div>
     <p class="footer-logo">SkincareShop</p>
     <p style="font-size:0.72rem; margin-top:0.5rem;">Premium Skincare Online Store</p>
-    <div style="display:flex; gap:1.8rem; margin-top:1.2rem;">
-      <a href="index.html" style="color:rgba(255,255,255,0.55); text-decoration:none; font-size:0.7rem; letter-spacing:0.08em; text-transform:uppercase;">Home</a>
-      <a href="pages/products.html" style="color:rgba(255,255,255,0.55); text-decoration:none; font-size:0.7rem; letter-spacing:0.08em; text-transform:uppercase;">Shop</a>
-      <a href="pages/cart.html" style="color:rgba(255,255,255,0.55); text-decoration:none; font-size:0.7rem; letter-spacing:0.08em; text-transform:uppercase;">Cart</a>
-      <a href="markdown.html" style="color:rgba(255,255,255,0.55); text-decoration:none; font-size:0.7rem; letter-spacing:0.08em; text-transform:uppercase;">Docs</a>
-      <a href="pages/login.html" style="color:rgba(255,255,255,0.55); text-decoration:none; font-size:0.7rem; letter-spacing:0.08em; text-transform:uppercase;">Account</a>
+    <div style="display:flex; gap:1.8rem; margin-top:1.2rem; flex-wrap:wrap;">
+      <a href="#top" style="color:rgba(255,255,255,0.55); text-decoration:none; font-size:0.7rem; letter-spacing:0.08em; text-transform:uppercase;">Home</a>
+      <a href="#shop" style="color:rgba(255,255,255,0.55); text-decoration:none; font-size:0.7rem; letter-spacing:0.08em; text-transform:uppercase;">Shop</a>
+      <a href="#about" style="color:rgba(255,255,255,0.55); text-decoration:none; font-size:0.7rem; letter-spacing:0.08em; text-transform:uppercase;">Our Story</a>
+      <a href="#contact" style="color:rgba(255,255,255,0.55); text-decoration:none; font-size:0.7rem; letter-spacing:0.08em; text-transform:uppercase;">Contact</a>
+      <a href="markdown.html" style="color:rgba(255,255,255,0.55); text-decoration:none; font-size:0.7rem; letter-spacing:0.08em; text-transform:uppercase;">Documentation</a>
     </div>
   </div>
   <div class="footer-info">
@@ -868,7 +815,32 @@ graph TD
   </div>
 </footer>
 
-<!-- Shared cart + interaction logic -->
-<script src="js/main.js"></script>
+<!-- interaction logic (self-contained) -->
+<script>
+  // Category chips (visual filter highlight)
+  document.querySelectorAll('.chip').forEach(b => b.addEventListener('click', () => {
+    document.querySelectorAll('.chip').forEach(x => x.classList.remove('active'));
+    b.classList.add('active');
+  }));
+
+  // Add to cart -> button feedback
+  document.querySelectorAll('.product-add').forEach(btn => btn.addEventListener('click', () => {
+    const orig = btn.textContent;
+    btn.textContent = 'Added to bag ✓';
+    btn.style.background = '#0A0A0A'; btn.style.color = '#fff'; btn.style.borderColor = '#0A0A0A';
+    setTimeout(() => { btn.textContent = orig; btn.style.background=''; btn.style.color=''; btn.style.borderColor=''; }, 1500);
+  }));
+
+  // Newsletter subscribe -> inline confirmation (no backend)
+  function subscribe(e) {
+    e.preventDefault();
+    const form = e.target;
+    form.querySelector('.contact-input').value = '';
+    const b = form.querySelector('.contact-btn');
+    b.textContent = 'Subscribed ✓';
+    setTimeout(() => { b.textContent = 'Subscribe'; }, 2000);
+    return false;
+  }
+</script>
 </body>
 </html>

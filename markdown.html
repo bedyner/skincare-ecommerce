@@ -92,15 +92,11 @@
   <a href="index.html" class="nav-logo">SkincareShop</a>
   <ul class="nav-links">
     <li><a href="index.html">Home</a></li>
-    <li><a href="pages/products.html">Shop</a></li>
+    <li><a href="index.html#shop">Shop</a></li>
     <li><a href="markdown.html" class="active">Docs</a></li>
-    <li><a href="index.html#architecture">System</a></li>
-    <li><a href="index.html#checklist">Workshop</a></li>
   </ul>
   <div class="nav-icons">
-    <span title="Search">🔍</span>
-    <span title="Account" onclick="location.href='pages/login.html'">👤</span>
-    <span title="Cart" onclick="location.href='pages/cart.html'">🛒<span class="cart-count">0</span></span>
+    <a href="index.html" style="text-decoration:none; color:var(--gray); font-size:0.72rem; letter-spacing:0.1em; text-transform:uppercase;">← Back to Store</a>
   </div>
 </nav>
 
@@ -131,9 +127,9 @@
     <p style="font-size:0.72rem; margin-top:0.6rem;">Premium Skincare Online Store</p>
     <div class="footer-links" style="margin-top:1.2rem;">
       <a href="index.html">Home</a>
-      <a href="pages/products.html">Shop</a>
+      <a href="index.html#shop">Shop</a>
       <a href="markdown.html">Docs</a>
-      <a href="pages/login.html">Account</a>
+      <a href="https://github.com/bedyner/SkincareShop">GitHub</a>
     </div>
   </div>
   <div class="footer-info">
@@ -200,7 +196,7 @@ Data Layer      →  MySQL (Primary) · Redis (Cache · Session)
 External        →  PromptPay · LINE Notify · Email (SMTP)
 \`\`\`
 
-> ดูแผนผัง Mermaid Diagram ฉบับเต็มได้ใน [README บน GitHub](https://github.com/bedyner/SkincareShop) และหน้า [System Architecture](index.html#architecture)
+> ดูแผนผัง Mermaid Diagram ฉบับเต็มได้ใน [README บน GitHub](https://github.com/bedyner/SkincareShop)
 
 # 5. เทคโนโลยีที่ใช้
 
@@ -214,12 +210,20 @@ External        →  PromptPay · LINE Notify · Email (SMTP)
 
 # 6. โครงสร้างหน้าเว็บ (Site Map)
 
-- **Home** ([index.html](index.html)) — หน้าแรก Hero + สินค้า + Architecture
-- **Shop** ([products.html](pages/products.html)) — รายการสินค้าทั้งหมด
-- **Cart** ([cart.html](pages/cart.html)) — ตะกร้าสินค้า
-- **Checkout** ([checkout.html](pages/checkout.html)) — ชำระเงิน
-- **Login** ([login.html](pages/login.html)) — เข้าสู่ระบบ / สมัครสมาชิก
-- **Docs** (markdown.html) — เอกสารฉบับนี้
+- **Home** ([index.html](index.html)) — หน้าแรก: Hero, แบรนด์, สินค้า, Promise, Contact
+- **Docs** (markdown.html) — เอกสารฉบับนี้ (System Requirement Specification)
+- **README.md** — เอกสารหลักแสดงบน GitHub
+
+# 7. Workshop #1 Checklist
+
+| # | รายการ | หลักฐาน | คะแนน | สถานะ |
+|---|---|---|---|---|
+| 1 | สร้าง GitHub Repository | URL Repository | 0.1 | ✅ |
+| 2 | ใช้ Sourcetree + Commit History | Screenshot Sourcetree | 0.2 | ✅ |
+| 3 | Markdown (README.md / HTML) | README บน GitHub | 0.5 | ✅ |
+| 4 | เอกสาร Analysis & Design | Markdown + Screenshot | 0.5 | ✅ |
+| 5 | System Architecture (Mermaid) | รูปภาพ Diagram | 0.5 | ✅ |
+| 6 | GitHub Pages เผยแพร่ได้จริง | URL Website | 0.2 | ✅ |
 
 ---
 
@@ -238,13 +242,6 @@ External        →  PromptPay · LINE Notify · Email (SMTP)
     li.innerHTML = '<a href="#' + id + '">' + h.textContent + '</a>';
     tocList.appendChild(li);
   });
-
-  // ── Cart badge from session ──
-  try {
-    const saved = JSON.parse(sessionStorage.getItem('skincareShopCart') || '[]');
-    const count = saved.reduce((s, i) => s + (i.qty || 0), 0);
-    document.querySelector('.cart-count').textContent = count;
-  } catch(e) {}
 </script>
 </body>
 </html>
