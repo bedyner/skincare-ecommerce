@@ -38,8 +38,8 @@ const buildOrderResponse = async (conn, orderId) => {
     ...order,
     shippingAddress: {
       recipient: order.recipient,
-      address:   order.address,
-      province:  order.province,
+      address: order.address,
+      province: order.province,
       postalCode: order.postalCode,
     },
     items,
@@ -114,10 +114,10 @@ const createOrder = async (customerId, { shippingAddress, paymentMethod }) => {
     const displayOrderId = `ORD-${dateStr}-${String(orderId).padStart(4, '0')}`;
 
     return {
-      orderId:   displayOrderId,
-      _dbId:     orderId,
+      orderId: displayOrderId,
+      _dbId: orderId,
       customerId,
-      status:    'pending_payment',
+      status: 'pending_payment',
       totalAmount: +totalAmount.toFixed(2),
       shippingAddress,
       paymentMethod: paymentMethod || null,
@@ -173,27 +173,43 @@ const getOrderById = async (customerId, orderId) => {
  * ลูกค้ากดยืนยันรับสินค้า → เปลี่ยนสถานะเป็น delivered
  * (อนุญาตเมื่อสถานะเป็น confirmed หรือ shipping เท่านั้น)
  */
-const confirmReceive = (customerId, orderId) => {
-  const order = findOne('orders', (o) => o.orderId === orderId && o.customerId === customerId);
+const confirmReceive = async (customerId, orderId) => {
+  // orderId อาจเป็น display string "ORD-20250101-0001" หรือ numeric
+  const numericId = Number(orderId);
+
+  const [[order]] = await pool.query(
+    'SELECT order_id, status FROM orders WHERE order_id = ? AND customer_id = ?',
+    [numericId, customerId]
+  );
   if (!order) {
     const err = new Error('ไม่พบคำสั่งซื้อ');
     err.statusCode = 404;
     throw err;
   }
-  if (order.status === 'delivered') {
+
+  const status = String(order.status).toLowerCase();
+  if (status === 'delivered') {
     const err = new Error('คำสั่งซื้อนี้ได้รับสินค้าแล้ว');
     err.statusCode = 400;
     throw err;
   }
-  if (order.status === 'pending_payment') {
+  if (status === 'pending' || status === 'pending_payment') {
     const err = new Error('กรุณาชำระเงินก่อนยืนยันรับสินค้า');
     err.statusCode = 400;
     throw err;
   }
-  return update('orders', order.id, {
-    status: 'delivered',
-    deliveredAt: new Date().toISOString(),
-  });
+
+  await pool.query(
+    'UPDATE orders SET status = "delivered" WHERE order_id = ?',
+    [numericId]
+  );
+
+  const conn = await pool.getConnection();
+  try {
+    return await buildOrderResponse(conn, numericId);
+  } finally {
+    conn.release();
+  }
 };
 
 module.exports = { createOrder, getMyOrders, getOrderById, confirmReceive, ORDER_STATUSES };
