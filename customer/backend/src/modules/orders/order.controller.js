@@ -35,9 +35,11 @@ const getOrderById = async (req, res, next) => {
  * PUT /api/orders/:orderId/receive
  * ลูกค้ายืนยันว่าได้รับสินค้าแล้ว → status = delivered
  */
-const confirmReceive = (req, res, next) => {
+const confirmReceive = async (req, res, next) => {
   try {
-    const order = orderService.confirmReceive(req.user.userId, req.params.orderId);
+    // Bug fix: ต้องใช้ customerId (ไม่ใช่ userId) เพื่อ verify ownership
+    // และต้อง await เพราะ confirmReceive เป็น async function
+    const order = await orderService.confirmReceive(req.user.customerId, req.params.orderId);
     res.json({ success: true, message: 'ยืนยันรับสินค้าเรียบร้อย', data: order });
   } catch (err) { next(err); }
 };
